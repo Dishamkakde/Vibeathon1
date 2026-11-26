@@ -9,6 +9,7 @@ import Settings from './components/Settings';
 import Help from './components/Help';
 import NewInvestigationModal from './components/NewInvestigationModal';
 import OnboardingWizard from './components/OnboardingWizard';
+import IntroVideo from './components/IntroVideo';
 import AuthModal from './components/AuthModal';
 import InspectReportModal from './components/InspectReportModal';
 import {
@@ -39,6 +40,7 @@ export default function App() {
   const { t } = useI18n();
   const initialRoute = parseRoute(window.location.pathname);
 
+  const [showIntro, setShowIntro] = useState(true);
   const [showOnboarding, setShowOnboarding] = useState(false);
 
   const [activeTab, setActiveTab] = useState(initialRoute.tab);
@@ -263,6 +265,10 @@ export default function App() {
     investigations: investigations.length,
     datasets: currentInvestigation?.datasets?.length || 0
   };
+
+  if (showIntro) {
+    return <IntroVideo onComplete={() => setShowIntro(false)} />;
+  }
 
   if (showOnboarding) {
     return (
